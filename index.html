@@ -84,11 +84,14 @@
 
   /* ---- readout of all bases ---- */
   .readout{
-    background:var(--panel);
+    background:rgba(255,255,255,.74);
+    -webkit-backdrop-filter:blur(20px) saturate(1.35);
+    backdrop-filter:blur(20px) saturate(1.35);
+    border:1px solid rgba(255,255,255,.6);
     border-radius:26px;
     padding:16px 18px;
     margin-top:10px;
-    box-shadow:0 10px 26px var(--shadow);
+    box-shadow:0 12px 30px var(--shadow), inset 0 1px 0 rgba(255,255,255,.7);
     flex:0 0 auto;
   }
   .row{
@@ -120,9 +123,17 @@
     word-break:break-all;
     line-height:1.25;
     color:var(--ink);
+    display:inline-block;
+    transform-origin:right center;
   }
   .row .val .muted{color:var(--ink-soft);font-weight:400;}
   .row.active .val{font-weight:700;color:var(--accent);}
+  @keyframes pop{
+    0%{transform:scale(.82);opacity:.55;}
+    60%{transform:scale(1.07);}
+    100%{transform:scale(1);opacity:1;}
+  }
+  .row .val.pop{animation:pop .18s ease-out;}
 
   /* ---- keypad ---- */
   .pad{
@@ -171,6 +182,21 @@
     opacity:.85;
     text-shadow:0 1px 5px rgba(120,80,160,.28);
   }
+
+  /* copy toast */
+  .toast{
+    position:fixed;left:50%;
+    bottom:calc(96px + env(safe-area-inset-bottom));
+    transform:translate(-50%,12px);
+    background:rgba(255,255,255,.92);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    color:#7a56c8;font-weight:700;font-size:14px;letter-spacing:.2px;
+    padding:10px 20px;border-radius:999px;
+    box-shadow:0 10px 28px rgba(120,80,160,.32);
+    opacity:0;pointer-events:none;z-index:20;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
 </style>
 </head>
 <body>
@@ -185,8 +211,9 @@
     </div>
 
     <div class="pad" id="pad"></div>
-    <div class="hint">Tap a row (BIN · OCT · DEC · HEX) to type in that base</div>
+    <div class="hint">Tap a row to type in it · hold to copy ✨</div>
   </div>
+  <div class="toast" id="toast"></div>
 
 <script>
 (function(){
@@ -202,6 +229,8 @@
     10: document.getElementById('v10'),
     16: document.getElementById('v16'),
   };
+  const baseName = {2:'BIN', 8:'OCT', 10:'DEC', 16:'HEX'};
+  const raw = {2:'0', 8:'0', 10:'0', 16:'0'}; // ungrouped values, for copying
 
   // group binary in nibbles / others in a readable way
   function grouped(str, size){
@@ -220,6 +249,8 @@
     const b10 = value.toString(10);
     const b16 = value.toString(16).toUpperCase();
 
+    raw[2] = b2; raw[8] = b8; raw[10] = b10; raw[16] = b16;
+
     els[2].textContent  = grouped(b2, 4);
     els[8].textContent  = grouped(b8, 3);
     els[10].textContent = grouped(b10, 3);
@@ -236,22 +267,60 @@
     });
   }
 
+  // re-trigger the little pop on the active base's value
+  function pop(){
+    const el = els[base];
+    el.classList.remove('pop');
+    void el.offsetWidth;   // force reflow so the animation restarts
+    el.classList.add('pop');
+  }
+
   function pushDigit(ch){
     const d = BigInt(digits.indexOf(ch));
     value = value * BigInt(base) + d;
     render();
+    pop();
   }
   function backspace(){
     value = value / BigInt(base); // integer division drops last digit
     render();
+    pop();
   }
   function clearAll(){
     value = 0n;
     render();
+    pop();
   }
   function setBase(b){
     base = b;
     render();
+  }
+
+  // ---- copy support ----
+  const toast = document.getElementById('toast');
+  let toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>toast.classList.remove('show'), 1150);
+  }
+  function copyText(s){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(s).catch(()=>fallbackCopy(s));
+    } else { fallbackCopy(s); }
+  }
+  function fallbackCopy(s){
+    const ta = document.createElement('textarea');
+    ta.value = s; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+  }
+  function copyBase(b){
+    copyText(raw[b] || '0');
+    showToast(baseName[b] + ' copied ✨');
+    if(navigator.vibrate) navigator.vibrate(8);
   }
 
   // ---- build keypad ----
@@ -301,9 +370,29 @@
     pad.appendChild(b);
   });
 
-  // base selection by tapping a readout row
+  // rows: tap = pick input base, long-press = copy that value
   document.querySelectorAll('.row').forEach(r=>{
-    r.addEventListener('click', ()=>setBase(Number(r.dataset.base)));
+    const b = Number(r.dataset.base);
+    let timer = null, longPressed = false, sx = 0, sy = 0;
+
+    const start = (e)=>{
+      longPressed = false;
+      sx = e.clientX; sy = e.clientY;
+      timer = setTimeout(()=>{ longPressed = true; copyBase(b); }, 380);
+    };
+    const cancel = ()=>{ clearTimeout(timer); };
+
+    r.addEventListener('pointerdown', start);
+    r.addEventListener('pointerup', cancel);
+    r.addEventListener('pointerleave', cancel);
+    r.addEventListener('pointercancel', cancel);
+    r.addEventListener('pointermove', (e)=>{
+      if(Math.abs(e.clientX - sx) > 12 || Math.abs(e.clientY - sy) > 12) cancel();
+    });
+    r.addEventListener('click', (e)=>{
+      if(longPressed){ longPressed = false; e.preventDefault(); return; }
+      setBase(b);
+    });
   });
 
   // physical keyboard support (nice on Mac / desktop)
