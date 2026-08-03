@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Base ✨" />
-<meta name="theme-color" content="#f7f2fb" />
+<meta name="theme-color" content="#c6a4f2" />
 <title>Pastel Base Converter</title>
 
 <!-- Home-screen & tab icons -->
@@ -16,37 +16,41 @@
 <link rel="manifest" href="manifest.webmanifest" />
 <style>
   :root{
-    --bg:#f4eefb;
-    --bg2:#efe7f7;
+    /* icon-matched gradient backdrop */
+    --bg:#c6a4f2;
+    --bg-mid:#e9b7e6;
+    --bg2:#ffc2dc;
     --panel:#ffffff;
-    --ink:#4a3f56;
+    --ink:#5b4d69;
     --ink-soft:#9a8fab;
-    --shadow:rgba(150,120,180,.22);
+    --on-grad:#ffffff;      /* text sitting directly on the gradient */
+    --shadow:rgba(120,80,160,.28);
 
-    /* pastel key palette */
+    /* pastel key palette (matches the app icon) */
     --key:#efe6f6;          /* number keys */
     --key-press:#e3d6f0;
     --key-ink:#5b4d69;
 
-    --fn:#e7d9f3;           /* function keys (AC, DEL) */
-    --fn-press:#d9c5ec;
+    --fn:#e6d6f5;           /* function keys (AC, DEL) */
+    --fn-press:#d6c0ee;
     --fn-ink:#6b4f86;
 
-    --hex:#ffe3ef;          /* A-F hex keys */
-    --hex-press:#ffd0e4;
-    --hex-ink:#b25d84;
+    --hex:#ffe0ec;          /* A-F hex keys */
+    --hex-press:#ffccdf;
+    --hex-ink:#c56791;
 
-    --accent:#c9a7f0;       /* active base pill */
+    --accent:#8f66d8;       /* active base pill / screen digits */
     --accent-ink:#ffffff;
-    --disabled:#f0ebf5;
-    --disabled-ink:#cabfd6;
+    --disabled:rgba(255,255,255,.30);
+    --disabled-ink:rgba(120,90,150,.45);
   }
 
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{height:100%;margin:0;}
   body{
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
-    background:linear-gradient(170deg,var(--bg),var(--bg2));
+    background:linear-gradient(160deg,var(--bg) 0%,var(--bg-mid) 52%,var(--bg2) 100%);
+    background-attachment:fixed;
     color:var(--ink);
     display:flex;
     justify-content:center;
@@ -72,9 +76,10 @@
   header h1{
     margin:0;
     font-size:15px;
-    font-weight:600;
+    font-weight:700;
     letter-spacing:.3px;
-    color:var(--ink-soft);
+    color:var(--on-grad);
+    text-shadow:0 1px 6px rgba(120,80,160,.30);
   }
 
   /* ---- readout of all bases ---- */
@@ -117,7 +122,7 @@
     color:var(--ink);
   }
   .row .val .muted{color:var(--ink-soft);font-weight:400;}
-  .row.active .val{font-weight:600;}
+  .row.active .val{font-weight:700;color:var(--accent);}
 
   /* ---- keypad ---- */
   .pad{
@@ -161,9 +166,10 @@
   .hint{
     text-align:center;
     font-size:11px;
-    color:var(--ink-soft);
+    color:var(--on-grad);
     padding-top:8px;
-    opacity:.8;
+    opacity:.85;
+    text-shadow:0 1px 5px rgba(120,80,160,.28);
   }
 </style>
 </head>
