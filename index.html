@@ -84,16 +84,25 @@
 
   /* ---- readout of all bases ---- */
   .readout{
-    background:rgba(255,255,255,.74);
-    -webkit-backdrop-filter:blur(20px) saturate(1.35);
-    backdrop-filter:blur(20px) saturate(1.35);
-    border:1px solid rgba(255,255,255,.6);
-    border-radius:26px;
+    position:relative;
+    overflow:hidden;
+    background:rgba(255,255,255,.62);
+    -webkit-backdrop-filter:blur(24px) saturate(1.6);
+    backdrop-filter:blur(24px) saturate(1.6);
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:30px;
     padding:16px 18px;
     margin-top:10px;
-    box-shadow:0 12px 30px var(--shadow), inset 0 1px 0 rgba(255,255,255,.7);
+    box-shadow:0 14px 34px var(--shadow), inset 0 1.5px 0 rgba(255,255,255,.9);
     flex:0 0 auto;
   }
+  /* liquid gloss sweeping the top of the glass card */
+  .readout::after{
+    content:"";position:absolute;left:0;right:0;top:0;height:46%;
+    background:linear-gradient(to bottom, rgba(255,255,255,.42), rgba(255,255,255,0));
+    pointer-events:none;z-index:0;
+  }
+  .row{position:relative;z-index:1;}
   .row{
     display:flex;
     align-items:baseline;
@@ -145,34 +154,63 @@
     margin-top:14px;
     min-height:0;
   }
+  /* ---- Liquid Glass keys ---- */
   button.key{
+    position:relative;
     border:none;
     border-radius:50px;
     font-size:26px;
-    font-weight:500;
+    font-weight:600;
     font-family:inherit;
     color:var(--key-ink);
-    background:var(--key);
-    box-shadow:0 4px 10px rgba(150,120,180,.14);
-    transition:transform .06s ease, background .12s ease;
+    background:linear-gradient(160deg, rgba(255,255,255,.55), rgba(255,255,255,.18));
+    -webkit-backdrop-filter:blur(14px) saturate(1.8);
+    backdrop-filter:blur(14px) saturate(1.8);
+    box-shadow:
+      inset 0 1.5px 1px rgba(255,255,255,.95),
+      inset 0 -9px 16px rgba(255,255,255,.16),
+      inset 0 0 0 1px rgba(255,255,255,.42),
+      0 10px 20px rgba(120,80,160,.18);
+    transition:transform .08s ease, box-shadow .16s ease, background .16s ease, filter .16s ease;
     display:flex;align-items:center;justify-content:center;
     -webkit-user-select:none;user-select:none;
     cursor:pointer;
     min-height:44px;
+    overflow:hidden;
+    isolation:isolate;
   }
-  button.key:active{transform:scale(.94);background:var(--key-press);}
-  button.key.fn{background:var(--fn);color:var(--fn-ink);font-weight:600;}
-  button.key.fn:active{background:var(--fn-press);}
-  button.key.hex{background:var(--hex);color:var(--hex-ink);}
-  button.key.hex:active{background:var(--hex-press);}
+  /* glossy liquid highlight across the top */
+  button.key::before{
+    content:"";position:absolute;left:7%;right:7%;top:5%;height:46%;
+    border-radius:50px 50px 60% 60%;
+    background:linear-gradient(to bottom, rgba(255,255,255,.62), rgba(255,255,255,0));
+    pointer-events:none;z-index:-1;
+  }
+  button.key:active{
+    transform:scale(.93);
+    filter:brightness(1.08);
+    box-shadow:
+      inset 0 2px 4px rgba(120,80,160,.20),
+      inset 0 0 0 1px rgba(255,255,255,.55),
+      0 4px 10px rgba(120,80,160,.16);
+  }
+  button.key.fn{
+    background:linear-gradient(160deg, rgba(214,196,245,.62), rgba(190,160,235,.26));
+    color:var(--fn-ink);font-weight:700;
+  }
+  button.key.hex{
+    background:linear-gradient(160deg, rgba(255,214,232,.64), rgba(255,190,220,.26));
+    color:var(--hex-ink);
+  }
   button.key.wide{grid-column:span 2;}
   button.key:disabled{
-    background:var(--disabled);
-    color:var(--disabled-ink);
-    box-shadow:none;
+    background:linear-gradient(160deg, rgba(255,255,255,.20), rgba(255,255,255,.06));
+    color:rgba(120,90,150,.42);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
     cursor:default;
   }
-  button.key:disabled:active{transform:none;}
+  button.key:disabled::before{opacity:.25;}
+  button.key:disabled:active{transform:none;filter:none;}
 
   .hint{
     text-align:center;
