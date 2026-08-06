@@ -1,7 +1,7 @@
 {
-  "name": "Pastel Base Converter",
+  "name": "Pastel Base Lab",
   "short_name": "Base ✨",
-  "description": "A cute pastel BIN / OCT / DEC / HEX number base converter.",
+  "description": "A cute pastel IT toolkit: base converter, programmer calculator, bit editor, subnet calculator, and ASCII lookup.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
