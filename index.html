@@ -4,221 +4,163 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Base ✨" />
-<meta name="theme-color" content="#c6a4f2" />
+<meta name="theme-color" content="#fff4f9" />
 <title>Pastel Base Lab</title>
 
-<!-- Home-screen & tab icons -->
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
 <link rel="manifest" href="manifest.webmanifest" />
 <style>
   :root{
-    --bg:#c6a4f2;
-    --bg-mid:#e9b7e6;
-    --bg2:#ffc2dc;
-    --ink:#5b4d69;
-    --ink-soft:#9a8fab;
-    --on-grad:#ffffff;
-    --shadow:rgba(120,80,160,.28);
-    --key-ink:#5b4d69;
-    --fn-ink:#6b4f86;
-    --hex-ink:#c56791;
-    --accent:#8f66d8;
-    --accent2:#c56791;
+    --bg1:#ffffff; --bg2:#fff2f8;
+    --ink:#2b2430; --muted:#a893b4; --line:#f3e4ee;
+    --card:#ffffff;
+    --num-bg:#f2ecf5; --num-ink:#332b3a;
+    --util-bg:#ffdcec; --util-ink:#c64d8b;
+    --pink:#ff77b0; --pink2:#ff4f97; --pink-ink:#ffffff;
+    --hex-bg:#ffdcec; --hex-ink:#c64d8b;
+    --accent:#ff4f97;
+    --shadow:rgba(255,110,170,.20);
   }
-
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{height:100%;margin:0;}
   body{
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif;
-    background:linear-gradient(160deg,var(--bg) 0%,var(--bg-mid) 52%,var(--bg2) 100%);
-    background-attachment:fixed;
-    color:var(--ink);
-    display:flex;justify-content:center;
-    overflow:hidden;
-    padding-top:env(safe-area-inset-top);
-    padding-bottom:env(safe-area-inset-bottom);
-    -webkit-user-select:none;user-select:none;
-    touch-action:manipulation;
+    background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
+    background-attachment:fixed;color:var(--ink);
+    display:flex;justify-content:center;overflow:hidden;
+    padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);
+    -webkit-user-select:none;user-select:none;touch-action:manipulation;
   }
-  .app{
-    width:100%;max-width:430px;height:100dvh;
-    display:flex;flex-direction:column;
-    padding:8px 16px calc(12px + env(safe-area-inset-bottom));
-  }
+  .app{width:100%;max-width:430px;height:100dvh;display:flex;flex-direction:column;
+    padding:8px 14px calc(12px + env(safe-area-inset-bottom));}
   header{text-align:center;padding:4px 0 2px;}
-  header h1{
-    margin:0;font-size:15px;font-weight:700;letter-spacing:.3px;
-    color:var(--on-grad);text-shadow:0 1px 6px rgba(120,80,160,.30);
-  }
+  header h1{margin:0;font-size:15px;font-weight:800;letter-spacing:.3px;color:var(--accent);}
 
-  /* ---- glass primitives ---- */
-  .glass{
-    background:linear-gradient(160deg, rgba(255,255,255,.55), rgba(255,255,255,.18));
-    -webkit-backdrop-filter:blur(14px) saturate(1.8);
-    backdrop-filter:blur(14px) saturate(1.8);
-    box-shadow:
-      inset 0 1.5px 1px rgba(255,255,255,.95),
-      inset 0 0 0 1px rgba(255,255,255,.42),
-      0 8px 18px rgba(120,80,160,.16);
-  }
-
-  /* ---- tab bar ---- */
-  .tabs{display:flex;gap:6px;justify-content:center;margin-top:8px;}
-  .tab{
-    flex:1 1 auto;border:none;font-family:inherit;font-weight:700;font-size:13px;
-    color:var(--fn-ink);padding:9px 6px;border-radius:16px;cursor:pointer;
-    background:linear-gradient(160deg, rgba(255,255,255,.45), rgba(255,255,255,.16));
-    -webkit-backdrop-filter:blur(12px) saturate(1.6);backdrop-filter:blur(12px) saturate(1.6);
-    box-shadow:inset 0 1px 1px rgba(255,255,255,.85), inset 0 0 0 1px rgba(255,255,255,.35);
-    transition:transform .08s ease;
-  }
+  /* tabs */
+  .tabs{display:flex;gap:5px;justify-content:center;margin-top:8px;}
+  .tab{flex:1 1 auto;border:none;font-family:inherit;font-weight:700;font-size:12.5px;color:var(--util-ink);
+    padding:9px 4px;border-radius:14px;cursor:pointer;background:var(--util-bg);transition:transform .08s ease;}
   .tab:active{transform:scale(.95);}
-  .tab.active{
-    background:linear-gradient(160deg, rgba(143,102,216,.95), rgba(180,140,235,.85));
-    color:#fff;box-shadow:inset 0 1px 1px rgba(255,255,255,.5), 0 6px 14px rgba(120,80,160,.3);
-  }
+  .tab.active{background:linear-gradient(160deg,var(--pink),var(--pink2));color:#fff;
+    box-shadow:0 6px 14px var(--shadow);}
 
-  /* ---- screens ---- */
   .screen{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;margin-top:8px;}
   .screen.hidden{display:none;}
   .scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;}
 
-  /* ---- readout card ---- */
-  .readout{
-    position:relative;overflow:hidden;
-    background:rgba(255,255,255,.62);
-    -webkit-backdrop-filter:blur(24px) saturate(1.6);backdrop-filter:blur(24px) saturate(1.6);
-    border:1px solid rgba(255,255,255,.55);border-radius:26px;
-    padding:8px 16px;
-    box-shadow:0 14px 34px var(--shadow), inset 0 1.5px 0 rgba(255,255,255,.9);
-    flex:0 0 auto;
-  }
-  .readout::after{
-    content:"";position:absolute;left:0;right:0;top:0;height:46%;
-    background:linear-gradient(to bottom, rgba(255,255,255,.42), rgba(255,255,255,0));
-    pointer-events:none;z-index:0;
-  }
-  .row{position:relative;z-index:1;display:flex;align-items:baseline;justify-content:space-between;
-    padding:6px 4px;gap:12px;cursor:pointer;border-radius:14px;transition:background .15s;}
-  .row + .row{border-top:1px solid rgba(200,180,225,.35);}
-  .row.active{background:rgba(247,240,254,.7);}
-  .row .tag{font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--ink-soft);min-width:40px;}
+  /* ---------- Standard calculator ---------- */
+  .calc-screen{display:flex;flex-direction:column;}
+  .disp{flex:1;display:flex;align-items:flex-end;justify-content:flex-end;
+    padding:10px 14px;font-weight:400;line-height:1;color:var(--ink);
+    font-variant-numeric:tabular-nums;overflow:hidden;word-break:break-all;text-align:right;}
+  .stdpad{flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:11px;}
+  .skey{aspect-ratio:1;border:none;border-radius:50%;font-family:inherit;font-size:27px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--num-ink);
+    background:var(--num-bg);box-shadow:0 4px 10px rgba(180,150,180,.14);
+    transition:transform .08s ease, filter .12s ease, background .12s ease, color .12s ease;}
+  .skey:active{transform:scale(.94);filter:brightness(.97);}
+  .skey.util{background:var(--util-bg);color:var(--util-ink);font-weight:700;}
+  .skey.op{background:linear-gradient(160deg,var(--pink),var(--pink2));color:#fff;font-size:30px;font-weight:600;
+    box-shadow:0 6px 14px var(--shadow);}
+  .skey.op.active{background:#fff;color:var(--pink2);box-shadow:inset 0 0 0 2px var(--pink2), 0 6px 14px var(--shadow);}
+
+  /* ---------- shared cards / readout (Base) ---------- */
+  .readout{position:relative;background:var(--card);border:1px solid var(--line);border-radius:26px;
+    padding:8px 16px;box-shadow:0 10px 26px var(--shadow);flex:0 0 auto;}
+  .row{display:flex;align-items:baseline;justify-content:space-between;padding:6px 4px;gap:12px;
+    cursor:pointer;border-radius:14px;transition:background .15s;}
+  .row + .row{border-top:1px solid var(--line);}
+  .row.active{background:#fff2f8;}
+  .row .tag{font-size:11px;font-weight:800;letter-spacing:.6px;color:var(--muted);min-width:40px;}
   .row.active .tag{color:var(--accent);}
-  .row .val{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";font-size:20px;font-weight:500;
-    text-align:right;word-break:break-all;line-height:1.25;color:var(--ink);
-    display:inline-block;transform-origin:right center;}
-  .row.active .val{font-weight:700;color:var(--accent);}
+  .row .val{font-variant-numeric:tabular-nums;font-size:20px;font-weight:500;text-align:right;
+    word-break:break-all;line-height:1.25;color:var(--ink);display:inline-block;transform-origin:right center;}
+  .row.active .val{font-weight:800;color:var(--accent);}
   @keyframes pop{0%{transform:scale(.82);opacity:.55;}60%{transform:scale(1.07);}100%{transform:scale(1);opacity:1;}}
   .row .val.pop{animation:pop .18s ease-out;}
+  .expr{height:16px;text-align:right;padding:0 8px;font-size:13px;font-weight:700;color:var(--muted);}
 
-  .expr{height:16px;text-align:right;padding:0 8px;font-size:13px;font-weight:600;
-    color:var(--on-grad);text-shadow:0 1px 4px rgba(120,80,160,.3);opacity:.9;}
-
-  /* ---- chip strips (word size + operators) ---- */
+  /* chip strips */
   .strip{display:flex;gap:7px;overflow-x:auto;padding:8px 2px;scrollbar-width:none;flex:0 0 auto;}
   .strip::-webkit-scrollbar{display:none;}
-  .chip{
-    flex:0 0 auto;border:none;font-family:inherit;font-weight:700;font-size:14px;
-    color:var(--fn-ink);padding:8px 13px;border-radius:15px;cursor:pointer;white-space:nowrap;
-    background:linear-gradient(160deg, rgba(255,255,255,.55), rgba(255,255,255,.2));
-    -webkit-backdrop-filter:blur(12px) saturate(1.6);backdrop-filter:blur(12px) saturate(1.6);
-    box-shadow:inset 0 1px 1px rgba(255,255,255,.9), inset 0 0 0 1px rgba(255,255,255,.4), 0 5px 12px rgba(120,80,160,.14);
-    transition:transform .08s ease;
-  }
+  .chip{flex:0 0 auto;border:none;font-family:inherit;font-weight:800;font-size:14px;color:var(--util-ink);
+    padding:8px 13px;border-radius:15px;cursor:pointer;white-space:nowrap;background:var(--util-bg);
+    box-shadow:0 4px 10px rgba(180,150,180,.12);transition:transform .08s ease;}
   .chip:active{transform:scale(.93);}
   .chip.op{color:var(--accent);}
-  .chip.active{background:linear-gradient(160deg, rgba(143,102,216,.95), rgba(180,140,235,.85));color:#fff;}
-  .divider{flex:0 0 auto;width:1px;background:rgba(255,255,255,.6);margin:5px 3px;}
+  .chip.active{background:linear-gradient(160deg,var(--pink),var(--pink2));color:#fff;}
+  .divider{flex:0 0 auto;width:1px;background:var(--line);margin:5px 3px;}
 
-  /* ---- keypad ---- */
+  /* Base keypad */
   .pad{flex:1 1 auto;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:10px;margin-top:8px;min-height:0;}
-  button.key{
-    position:relative;border:none;border-radius:44px;font-size:25px;font-weight:600;font-family:inherit;
-    color:var(--key-ink);
-    background:linear-gradient(160deg, rgba(255,255,255,.55), rgba(255,255,255,.18));
-    -webkit-backdrop-filter:blur(14px) saturate(1.8);backdrop-filter:blur(14px) saturate(1.8);
-    box-shadow:inset 0 1.5px 1px rgba(255,255,255,.95), inset 0 -9px 16px rgba(255,255,255,.16),
-      inset 0 0 0 1px rgba(255,255,255,.42), 0 8px 18px rgba(120,80,160,.18);
-    transition:transform .08s ease, box-shadow .16s ease, filter .16s ease;
-    display:flex;align-items:center;justify-content:center;
-    -webkit-user-select:none;user-select:none;cursor:pointer;min-height:42px;overflow:hidden;isolation:isolate;
-  }
-  button.key::before{content:"";position:absolute;left:7%;right:7%;top:5%;height:46%;border-radius:44px 44px 60% 60%;
-    background:linear-gradient(to bottom, rgba(255,255,255,.62), rgba(255,255,255,0));pointer-events:none;z-index:-1;}
-  button.key:active{transform:scale(.93);filter:brightness(1.08);
-    box-shadow:inset 0 2px 4px rgba(120,80,160,.2), inset 0 0 0 1px rgba(255,255,255,.55), 0 4px 10px rgba(120,80,160,.16);}
-  button.key.fn{background:linear-gradient(160deg, rgba(214,196,245,.62), rgba(190,160,235,.26));color:var(--fn-ink);font-weight:700;}
-  button.key.hex{background:linear-gradient(160deg, rgba(255,214,232,.64), rgba(255,190,220,.26));color:var(--hex-ink);}
+  button.key{position:relative;border:none;border-radius:40px;font-size:24px;font-weight:600;font-family:inherit;
+    color:var(--num-ink);background:var(--num-bg);box-shadow:0 4px 10px rgba(180,150,180,.14);
+    transition:transform .08s ease, filter .12s ease;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;min-height:40px;}
+  button.key:active{transform:scale(.93);filter:brightness(.97);}
+  button.key.fn{background:var(--util-bg);color:var(--util-ink);font-weight:700;}
+  button.key.hex{background:var(--hex-bg);color:var(--hex-ink);}
   button.key.wide{grid-column:span 2;}
-  button.key:disabled{background:linear-gradient(160deg, rgba(255,255,255,.2), rgba(255,255,255,.06));
-    color:rgba(120,90,150,.42);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);cursor:default;}
-  button.key:disabled::before{opacity:.25;}
+  button.key:disabled{background:#f6f0f5;color:#d9c9d7;box-shadow:none;cursor:default;}
   button.key:disabled:active{transform:none;filter:none;}
 
-  /* ---- bits ---- */
-  .panel{border-radius:22px;padding:12px 14px;flex:0 0 auto;}
-  .bits-top{display:flex;justify-content:space-between;gap:14px;margin-bottom:2px;}
-  .bits-top .b{font-variant-numeric:tabular-nums;}
-  .bits-top .b span{font-size:11px;font-weight:700;color:var(--ink-soft);margin-right:6px;letter-spacing:.5px;}
-  .bits-top .b b{font-size:18px;color:var(--accent);word-break:break-all;}
+  /* Bits */
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px 14px;flex:0 0 auto;
+    box-shadow:0 10px 26px var(--shadow);}
+  .bits-top{display:flex;justify-content:space-between;gap:14px;}
+  .bits-top .b span{font-size:11px;font-weight:800;color:var(--muted);margin-right:6px;letter-spacing:.5px;}
+  .bits-top .b b{font-size:18px;color:var(--accent);word-break:break-all;font-variant-numeric:tabular-nums;}
   .bitgrid{margin-top:10px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;padding-bottom:6px;}
   .byte{display:flex;align-items:center;gap:6px;justify-content:center;}
-  .byte .lab{font-size:10px;color:var(--fn-ink);width:40px;text-align:right;opacity:.85;font-weight:700;font-variant-numeric:tabular-nums;}
+  .byte .lab{font-size:10px;color:var(--util-ink);width:40px;text-align:right;opacity:.85;font-weight:800;font-variant-numeric:tabular-nums;}
   .bit{width:30px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
     font-weight:800;font-size:15px;cursor:pointer;transition:transform .08s ease;}
   .bit:active{transform:scale(.9);}
   .bit.gap{margin-left:8px;}
-  .bit.on{background:linear-gradient(160deg, rgba(143,102,216,.95), rgba(197,103,145,.9));color:#fff;
-    box-shadow:inset 0 1px 1px rgba(255,255,255,.5), 0 4px 10px rgba(120,80,160,.28);}
-  .bit.off{color:rgba(120,90,150,.5);
-    background:linear-gradient(160deg, rgba(255,255,255,.5), rgba(255,255,255,.18));
-    box-shadow:inset 0 1px 1px rgba(255,255,255,.9), inset 0 0 0 1px rgba(255,255,255,.4);}
+  .bit.on{background:linear-gradient(160deg,var(--pink),var(--pink2));color:#fff;box-shadow:0 4px 10px var(--shadow);}
+  .bit.off{color:#c8b6cf;background:var(--num-bg);}
 
-  /* ---- forms (IP / ASCII) ---- */
-  .field{width:100%;font-family:inherit;font-size:16px;color:var(--ink);
-    background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.55);border-radius:14px;padding:11px 14px;}
+  /* forms */
+  .field{width:100%;font-family:inherit;font-size:16px;color:var(--ink);background:#fbf5fa;
+    border:1px solid var(--line);border-radius:14px;padding:11px 14px;}
   .field:focus{outline:none;border-color:var(--accent);}
-  .lbl{font-size:12px;font-weight:700;color:var(--fn-ink);margin:2px 2px 6px;letter-spacing:.3px;}
+  .lbl{font-size:12px;font-weight:800;color:var(--util-ink);margin:2px 2px 6px;letter-spacing:.3px;}
   .octets{display:flex;align-items:center;justify-content:center;gap:5px;}
   .octet{width:100%;max-width:66px;text-align:center;font-size:20px;font-weight:700;color:var(--ink);
-    background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.55);border-radius:12px;padding:9px 4px;}
+    background:#fbf5fa;border:1px solid var(--line);border-radius:12px;padding:9px 4px;}
   .octet:focus{outline:none;border-color:var(--accent);}
   .dot{font-weight:800;color:var(--accent);font-size:20px;}
   .slash{font-weight:800;color:var(--accent);font-size:22px;margin:0 2px;}
   .cidr{width:58px;text-align:center;font-size:20px;font-weight:700;color:var(--ink);
-    background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.55);border-radius:12px;padding:9px 4px;}
+    background:#fbf5fa;border:1px solid var(--line);border-radius:12px;padding:9px 4px;}
   .cidr:focus{outline:none;border-color:var(--accent);}
-  .out{margin-top:12px;border-radius:20px;padding:6px 14px;}
+  .out{margin-top:12px;}
   .out .r{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 2px;cursor:pointer;border-radius:10px;}
-  .out .r + .r{border-top:1px solid rgba(200,180,225,.35);}
-  .out .r:active{background:rgba(247,240,254,.6);}
-  .out .r .k{font-size:12px;font-weight:700;color:var(--ink-soft);letter-spacing:.4px;}
+  .out .r + .r{border-top:1px solid var(--line);}
+  .out .r:active{background:#fff2f8;}
+  .out .r .k{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.4px;}
   .out .r .v{font-size:16px;font-weight:700;color:var(--ink);text-align:right;word-break:break-all;font-variant-numeric:tabular-nums;}
   .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
   .badge{font-size:11px;font-weight:800;letter-spacing:.4px;padding:5px 11px;border-radius:999px;color:#fff;
-    background:linear-gradient(160deg, rgba(143,102,216,.95), rgba(197,103,145,.9));box-shadow:0 4px 10px rgba(120,80,160,.25);}
-  .badge.soft{background:linear-gradient(160deg, rgba(255,255,255,.6), rgba(255,255,255,.25));color:var(--fn-ink);}
-
+    background:linear-gradient(160deg,var(--pink),var(--pink2));box-shadow:0 4px 10px var(--shadow);}
+  .badge.soft{background:var(--util-bg);color:var(--util-ink);}
   .cps{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
   .cp{display:inline-flex;align-items:baseline;gap:6px;padding:7px 11px;border-radius:13px;font-weight:700;cursor:pointer;
-    background:linear-gradient(160deg, rgba(255,255,255,.55), rgba(255,255,255,.2));
-    box-shadow:inset 0 1px 1px rgba(255,255,255,.9), inset 0 0 0 1px rgba(255,255,255,.4);}
+    background:var(--num-bg);}
   .cp .c{font-size:17px;color:var(--ink);}
   .cp b{color:var(--accent);font-size:14px;}
-  .cp small{color:var(--ink-soft);font-size:12px;font-weight:600;}
+  .cp small{color:var(--muted);font-size:12px;font-weight:600;}
   .bigchar{font-size:52px;text-align:center;font-weight:700;color:var(--accent);margin:8px 0;min-height:56px;}
 
-  .hint{text-align:center;font-size:11px;color:var(--on-grad);padding-top:8px;opacity:.85;
-    text-shadow:0 1px 5px rgba(120,80,160,.28);flex:0 0 auto;}
+  .hint{text-align:center;font-size:11px;color:var(--muted);padding-top:8px;flex:0 0 auto;}
 
   .toast{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));transform:translate(-50%,12px);
-    background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-    color:#7a56c8;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;
-    box-shadow:0 10px 28px rgba(120,80,160,.32);opacity:0;pointer-events:none;z-index:20;
+    background:#fff;color:var(--pink2);font-weight:800;font-size:14px;padding:10px 20px;border-radius:999px;
+    box-shadow:0 10px 28px var(--shadow);opacity:0;pointer-events:none;z-index:20;
     transition:opacity .2s ease, transform .2s ease;}
   .toast.show{opacity:1;transform:translate(-50%,0);}
 </style>
@@ -228,14 +170,21 @@
     <header><h1>✨ Base Lab ✨</h1></header>
 
     <nav class="tabs" id="tabs">
-      <button class="tab active" data-tab="calc">Calc</button>
+      <button class="tab active" data-tab="std">Calc</button>
+      <button class="tab" data-tab="base">Base</button>
       <button class="tab" data-tab="bits">Bits</button>
       <button class="tab" data-tab="ip">Subnet</button>
       <button class="tab" data-tab="ascii">ASCII</button>
     </nav>
 
-    <!-- ============ CALC ============ -->
-    <section class="screen" id="tab-calc">
+    <!-- ===== STANDARD CALC ===== -->
+    <section class="screen calc-screen" id="tab-std">
+      <div class="disp" id="disp">0</div>
+      <div class="stdpad" id="stdpad"></div>
+    </section>
+
+    <!-- ===== BASE ===== -->
+    <section class="screen hidden" id="tab-base">
       <div class="expr" id="expr"></div>
       <div class="readout">
         <div class="row" data-base="2"><span class="tag">BIN</span><span class="val" id="v2">0</span></div>
@@ -247,9 +196,9 @@
       <div class="pad" id="pad"></div>
     </section>
 
-    <!-- ============ BITS ============ -->
+    <!-- ===== BITS ===== -->
     <section class="screen hidden" id="tab-bits">
-      <div class="panel glass">
+      <div class="panel">
         <div class="bits-top">
           <div class="b"><span>HEX</span><b id="bitsHex">0</b></div>
           <div class="b"><span>DEC</span><b id="bitsDec">0</b></div>
@@ -260,9 +209,9 @@
       <div class="hint">Tap a bit to flip it · every base updates live ✨</div>
     </section>
 
-    <!-- ============ SUBNET ============ -->
+    <!-- ===== SUBNET ===== -->
     <section class="screen hidden scroll" id="tab-ip">
-      <div class="panel glass">
+      <div class="panel">
         <div class="lbl">IPv4 address &amp; CIDR</div>
         <div class="octets">
           <input class="octet" id="o0" inputmode="numeric" maxlength="3" value="192" />
@@ -276,19 +225,19 @@
           <input class="cidr" id="cidr" inputmode="numeric" maxlength="2" value="24" />
         </div>
       </div>
-      <div class="out glass" id="ipout"></div>
+      <div class="out panel" id="ipout" style="margin-top:12px;"></div>
       <div class="badges" id="ipbadges"></div>
       <div class="hint">Tap any result to copy it ✨</div>
     </section>
 
-    <!-- ============ ASCII ============ -->
+    <!-- ===== ASCII ===== -->
     <section class="screen hidden scroll" id="tab-ascii">
-      <div class="panel glass">
+      <div class="panel">
         <div class="lbl">Text → character codes</div>
         <input class="field" id="asciiText" placeholder="type here…" value="Hi!" autocomplete="off" autocapitalize="off" spellcheck="false" />
         <div class="cps" id="cps"></div>
       </div>
-      <div class="panel glass" style="margin-top:12px;">
+      <div class="panel" style="margin-top:12px;">
         <div class="lbl">Code point → character</div>
         <input class="field" id="asciiCode" inputmode="numeric" placeholder="e.g. 65" value="65" autocomplete="off" />
         <div class="bigchar" id="bigchar">A</div>
@@ -296,7 +245,7 @@
       <div class="hint">Tap a code chip to copy it ✨</div>
     </section>
 
-    <div class="hint" id="footHint">Tap a row to type in it · hold to copy ✨</div>
+    <div class="hint" id="footHint">Works just like your normal calculator ✨</div>
   </div>
   <div class="toast" id="toast"></div>
 
@@ -305,313 +254,290 @@
   "use strict";
   var digits = "0123456789ABCDEF";
   var baseName = {2:'BIN',8:'OCT',10:'DEC',16:'HEX'};
-
-  // ---------- shared state ----------
-  var value = 0n;         // current working value (always masked)
-  var base = 10;          // active input base
-  var wordSize = 32;      // 8 / 16 / 32 / 64
-  var stored = 0n, op = null, freshEntry = false;
-  var activeTab = 'calc';
-
-  function mask(){ return (1n << BigInt(wordSize)) - 1n; }
+  var activeTab = 'std';
 
   // ---------- toast + copy ----------
   var toast = document.getElementById('toast'), toastTimer = null;
-  function showToast(msg){
-    toast.textContent = msg; toast.classList.add('show');
-    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 1150);
+  function showToast(msg){ toast.textContent=msg; toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){ toast.classList.remove('show'); },1150); }
+  function copyText(s){ if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(s).catch(function(){ fallbackCopy(s); }); } else { fallbackCopy(s); } }
+  function fallbackCopy(s){ var ta=document.createElement('textarea'); ta.value=s; ta.style.position='fixed';
+    ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); }
+
+  /* =========================================================
+     STANDARD (everyday) CALCULATOR  — decimal, German comma
+     ========================================================= */
+  var dispEl = document.getElementById('disp');
+  var sEntry='0', sOp=null, sOperand=null, sFresh=false;
+
+  function numToEntry(x){ if(!isFinite(x)) return 'Error';
+    var s = parseFloat(x.toPrecision(12)).toString(); return s; }
+  function parseEntry(e){ if(e==='Error') return 0; return Number(e); }
+  function formatEntry(e){
+    if(e==='Error') return 'Error';
+    if(/[eE]/.test(e)) return e.replace('.', ',');
+    var neg = e.charAt(0)==='-'; var s = neg? e.slice(1):e;
+    var parts = s.split('.'); var ip = parts[0]||'0';
+    ip = ip.replace(/\B(?=(\d{3})+(?!\d))/g,'.');           // German thousands "."
+    var out = ip; if(parts.length>1) out += ',' + parts[1]; // decimal ","
+    return (neg?'-':'') + out;
   }
-  function copyText(s){
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(s).catch(function(){ fallbackCopy(s); });
-    } else { fallbackCopy(s); }
+  function applyOp(a,o,b){ switch(o){ case '+':return a+b; case '-':return a-b;
+    case '*':return a*b; case '/':return b===0?Infinity:a/b; } return b; }
+
+  function sDigit(d){
+    if(sEntry==='Error'||sFresh){ sEntry = d; sFresh=false; }
+    else if(sEntry==='0'){ sEntry = (d==='0')?'0':d; }
+    else if(sEntry.replace('-','').replace('.','').length < 15){ sEntry += d; }
+    sRender();
   }
-  function fallbackCopy(s){
-    var ta = document.createElement('textarea');
-    ta.value = s; ta.style.position='fixed'; ta.style.opacity='0';
-    document.body.appendChild(ta); ta.select();
-    try{ document.execCommand('copy'); }catch(e){}
-    document.body.removeChild(ta);
+  function sDot(){ if(sEntry==='Error'||sFresh){ sEntry='0.'; sFresh=false; }
+    else if(sEntry.indexOf('.')===-1){ sEntry += '.'; } sRender(); }
+  function sSign(){ if(sEntry==='Error') return;
+    if(sEntry.charAt(0)==='-') sEntry=sEntry.slice(1); else if(sEntry!=='0') sEntry='-'+sEntry; sRender(); }
+  function sBack(){ if(sFresh||sEntry==='Error'){ sEntry='0'; sFresh=false; sRender(); return; }
+    sEntry=sEntry.slice(0,-1); if(sEntry===''||sEntry==='-') sEntry='0'; sRender(); }
+  function sPercent(){ if(sEntry!=='Error'){ sEntry=numToEntry(parseEntry(sEntry)/100); } sRender(); }
+  function sClear(){ sEntry='0'; sOp=null; sOperand=null; sFresh=false; sRender(); }
+  function sSetOp(o){
+    if(sEntry!=='Error'){
+      if(sOp!==null && !sFresh){ var r=applyOp(sOperand,sOp,parseEntry(sEntry)); sOperand=r; sEntry=numToEntry(r); }
+      else { sOperand=parseEntry(sEntry); }
+      sOp=o; sFresh=true;
+    }
+    sRender();
+  }
+  function sEquals(){ if(sOp!==null && sEntry!=='Error'){
+      sEntry=numToEntry(applyOp(sOperand,sOp,parseEntry(sEntry))); sOp=null; sOperand=null; sFresh=true; }
+    sRender(); }
+  function sRender(){
+    var txt = formatEntry(sEntry); dispEl.textContent = txt;
+    var L = txt.length; dispEl.style.fontSize = (L>13?'32px':L>10?'44px':L>7?'56px':'68px');
+    document.querySelectorAll('#stdpad .skey.op').forEach(function(el){
+      el.classList.toggle('active', sOp!==null && sFresh && el.dataset.v===sOp); });
   }
 
-  // ---------- CALC: readout ----------
-  var els = { 2:document.getElementById('v2'), 8:document.getElementById('v8'),
-              10:document.getElementById('v10'), 16:document.getElementById('v16') };
-  var raw = {2:'0',8:'0',10:'0',16:'0'};
-  var exprEl = document.getElementById('expr');
+  var stdKeys=[
+    {t:'⌫',a:'back',c:'util'},{t:'AC',a:'clear',c:'util'},{t:'%',a:'percent',c:'util'},{t:'÷',a:'op',v:'/',c:'op'},
+    {t:'7',a:'d'},{t:'8',a:'d'},{t:'9',a:'d'},{t:'×',a:'op',v:'*',c:'op'},
+    {t:'4',a:'d'},{t:'5',a:'d'},{t:'6',a:'d'},{t:'−',a:'op',v:'-',c:'op'},
+    {t:'1',a:'d'},{t:'2',a:'d'},{t:'3',a:'d'},{t:'+',a:'op',v:'+',c:'op'},
+    {t:'+/−',a:'sign',c:'util'},{t:'0',a:'d'},{t:',',a:'dot'},{t:'=',a:'eq',c:'op'}
+  ];
+  var stdpad = document.getElementById('stdpad');
+  stdKeys.forEach(function(k){
+    var b=document.createElement('button');
+    b.className='skey '+(k.c||'num'); b.textContent=k.t; if(k.v) b.dataset.v=k.v;
+    b.addEventListener('click', function(){
+      switch(k.a){ case 'd': sDigit(k.t); break; case 'dot': sDot(); break;
+        case 'op': sSetOp(k.v); break; case 'eq': sEquals(); break; case 'clear': sClear(); break;
+        case 'back': sBack(); break; case 'sign': sSign(); break; case 'percent': sPercent(); break; }
+    });
+    stdpad.appendChild(b);
+  });
 
-  function grouped(str, size){
-    if(str.length <= size) return str;
-    var out='';
-    for(var i=str.length; i>0; i-=size){ out = str.slice(Math.max(0,i-size), i) + (out?' ':'') + out; }
-    return out;
-  }
-  var glyph = {AND:'AND',OR:'OR',XOR:'XOR',SHL:'<<',SHR:'>>',ADD:'+',SUB:'−',MUL:'×',DIV:'÷',MOD:'%'};
+  /* =========================================================
+     BASE / PROGRAMMER TOOLS  (BigInt)
+     ========================================================= */
+  var value=0n, base=10, wordSize=32, stored=0n, op=null, freshEntry=false;
+  function mask(){ return (1n<<BigInt(wordSize))-1n; }
+  var els={2:document.getElementById('v2'),8:document.getElementById('v8'),
+           10:document.getElementById('v10'),16:document.getElementById('v16')};
+  var raw={2:'0',8:'0',10:'0',16:'0'};
+  var exprEl=document.getElementById('expr');
+  function grouped(str,size){ if(str.length<=size) return str; var out='';
+    for(var i=str.length;i>0;i-=size){ out=str.slice(Math.max(0,i-size),i)+(out?' ':'')+out; } return out; }
+  var glyph={AND:'AND',OR:'OR',XOR:'XOR',SHL:'<<',SHR:'>>',ADD:'+',SUB:'−',MUL:'×',DIV:'÷',MOD:'%'};
 
   function render(){
-    var m = mask(); value &= m;
-    var b2=value.toString(2).toUpperCase(), b8=value.toString(8).toUpperCase(),
-        b10=value.toString(10), b16=value.toString(16).toUpperCase();
+    var m=mask(); value&=m;
+    var b2=value.toString(2).toUpperCase(),b8=value.toString(8).toUpperCase(),
+        b10=value.toString(10),b16=value.toString(16).toUpperCase();
     raw[2]=b2; raw[8]=b8; raw[10]=b10; raw[16]=b16;
     els[2].textContent=grouped(b2,4); els[8].textContent=grouped(b8,3);
     els[10].textContent=grouped(b10,3); els[16].textContent=grouped(b16,4);
-
-    var rows = document.querySelectorAll('#tab-calc .row');
-    for(var i=0;i<rows.length;i++){ rows[i].classList.toggle('active', Number(rows[i].dataset.base)===base); }
-
-    var ks = document.querySelectorAll('.key[data-digit]');
-    for(var j=0;j<ks.length;j++){ ks[j].disabled = digits.indexOf(ks[j].dataset.digit) >= base; }
-
-    exprEl.textContent = op ? (stored.toString(base).toUpperCase() + ' ' + glyph[op]) : '';
-    var chips = document.querySelectorAll('#opstrip .chip.op');
-    for(var c=0;c<chips.length;c++){ chips[c].classList.toggle('active', op && chips[c].dataset.op===op); }
-
-    renderWordChips();
+    var rows=document.querySelectorAll('#tab-base .row');
+    for(var i=0;i<rows.length;i++) rows[i].classList.toggle('active',Number(rows[i].dataset.base)===base);
+    var ks=document.querySelectorAll('#pad .key[data-digit]');
+    for(var j=0;j<ks.length;j++) ks[j].disabled = digits.indexOf(ks[j].dataset.digit)>=base;
+    exprEl.textContent = op ? (stored.toString(base).toUpperCase()+' '+glyph[op]) : '';
+    document.querySelectorAll('#opstrip .chip.op').forEach(function(c){ c.classList.toggle('active', op && c.dataset.op===op); });
+    document.querySelectorAll('.chip.word').forEach(function(c){ c.classList.toggle('active', Number(c.dataset.word)===wordSize); });
     renderBits();
   }
-
   function pop(){ var el=els[base]; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
-
-  function pushDigit(ch){
-    var d = BigInt(digits.indexOf(ch)), m = mask();
-    if(freshEntry){ value=0n; freshEntry=false; }
-    value = (value*BigInt(base)+d) & m;
-    render(); pop();
-  }
-  function backspace(){ value = (value / BigInt(base)) & mask(); freshEntry=false; render(); pop(); }
+  function pushDigit(ch){ var d=BigInt(digits.indexOf(ch)),m=mask();
+    if(freshEntry){ value=0n; freshEntry=false; } value=(value*BigInt(base)+d)&m; render(); pop(); }
+  function backspace(){ value=(value/BigInt(base))&mask(); freshEntry=false; render(); pop(); }
   function clearAll(){ value=0n; stored=0n; op=null; freshEntry=false; render(); }
   function setBase(b){ base=b; render(); }
-
-  function compute(a, o, b){
-    var m = mask(); a &= m; b &= m; var r;
-    switch(o){
-      case 'AND': r=a&b; break;
-      case 'OR':  r=a|b; break;
-      case 'XOR': r=a^b; break;
-      case 'SHL': r = (b>=BigInt(wordSize)) ? 0n : (a<<b); break;
-      case 'SHR': r = (b>=BigInt(wordSize)) ? 0n : (a>>b); break;
-      case 'ADD': r=a+b; break;
-      case 'SUB': r=a-b; break;
-      case 'MUL': r=a*b; break;
-      case 'DIV': r = (b===0n)?a:(a/b); break;
-      case 'MOD': r = (b===0n)?a:(a%b); break;
-      default: r=b;
-    }
-    return r & m;
-  }
-  function inputOp(id){
-    var m = mask();
+  function compute(a,o,b){ var m=mask(); a&=m; b&=m; var r;
+    switch(o){ case 'AND':r=a&b;break; case 'OR':r=a|b;break; case 'XOR':r=a^b;break;
+      case 'SHL':r=(b>=BigInt(wordSize))?0n:(a<<b);break; case 'SHR':r=(b>=BigInt(wordSize))?0n:(a>>b);break;
+      case 'ADD':r=a+b;break; case 'SUB':r=a-b;break; case 'MUL':r=a*b;break;
+      case 'DIV':r=(b===0n)?a:(a/b);break; case 'MOD':r=(b===0n)?a:(a%b);break; default:r=b; }
+    return r&m; }
+  function inputOp(id){ var m=mask();
     if(id==='NOT'){ value=(~value)&m; freshEntry=true; render(); return; }
     if(id==='EQ'){ if(op!==null){ value=compute(stored,op,value); op=null; stored=0n; freshEntry=true; } render(); return; }
-    if(op!==null && !freshEntry){ value=compute(stored,op,value); stored=value; }
-    else { stored=value; }
-    op=id; freshEntry=true; render();
-  }
-
-  // ---------- operator strip ----------
-  var opstrip = document.getElementById('opstrip');
-  var ops = [
-    {id:'AND',t:'AND'},{id:'OR',t:'OR'},{id:'XOR',t:'XOR'},{id:'NOT',t:'NOT'},
-    {id:'SHL',t:'<<'},{id:'SHR',t:'>>'},
-    {id:'ADD',t:'+'},{id:'SUB',t:'−'},{id:'MUL',t:'×'},{id:'DIV',t:'÷'},{id:'MOD',t:'%'},{id:'EQ',t:'='}
-  ];
-  var words = [8,16,32,64];
-  function renderWordChips(){
-    document.querySelectorAll('.chip.word').forEach(function(c){
-      c.classList.toggle('active', Number(c.dataset.word)===wordSize);
-    });
-  }
+    if(op!==null && !freshEntry){ value=compute(stored,op,value); stored=value; } else { stored=value; }
+    op=id; freshEntry=true; render(); }
   function setWord(w){ wordSize=w; var m=mask(); value&=m; stored&=m; render(); }
 
-  // opstrip has word chips + operators; bits strip has word chips only
-  words.forEach(function(w){
-    var c=document.createElement('button');
+  var opstrip=document.getElementById('opstrip');
+  var opsList=[{id:'AND',t:'AND'},{id:'OR',t:'OR'},{id:'XOR',t:'XOR'},{id:'NOT',t:'NOT'},
+    {id:'SHL',t:'<<'},{id:'SHR',t:'>>'},{id:'ADD',t:'+'},{id:'SUB',t:'−'},{id:'MUL',t:'×'},
+    {id:'DIV',t:'÷'},{id:'MOD',t:'%'},{id:'EQ',t:'='}];
+  var words=[8,16,32,64];
+  words.forEach(function(w){ var c=document.createElement('button');
     c.className='chip word'+(w===wordSize?' active':''); c.dataset.word=w; c.textContent=w+'-bit';
-    c.addEventListener('click', function(){ setWord(w); });
-    opstrip.appendChild(c);
-  });
+    c.addEventListener('click',function(){ setWord(w); }); opstrip.appendChild(c); });
   var dv=document.createElement('div'); dv.className='divider'; opstrip.appendChild(dv);
-  ops.forEach(function(o){
-    var c=document.createElement('button');
+  opsList.forEach(function(o){ var c=document.createElement('button');
     c.className='chip op'; c.dataset.op=o.id; c.textContent=o.t;
-    c.addEventListener('click', function(){ inputOp(o.id); });
-    opstrip.appendChild(c);
-  });
+    c.addEventListener('click',function(){ inputOp(o.id); }); opstrip.appendChild(c); });
 
-  var wordstrip2 = document.getElementById('wordstrip2');
-  words.forEach(function(w){
-    var c=document.createElement('button');
+  var wordstrip2=document.getElementById('wordstrip2');
+  words.forEach(function(w){ var c=document.createElement('button');
     c.className='chip word'+(w===wordSize?' active':''); c.dataset.word=w; c.textContent=w+'-bit';
-    c.addEventListener('click', function(){ setWord(w); });
-    wordstrip2.appendChild(c);
-  });
+    c.addEventListener('click',function(){ setWord(w); }); wordstrip2.appendChild(c); });
 
-  // ---------- keypad ----------
-  var pad = document.getElementById('pad');
-  var keys = [
-    {t:'A',c:'hex',dig:'A'},{t:'B',c:'hex',dig:'B'},{t:'C',c:'hex',dig:'C'},{t:'DEL',c:'fn',fn:backspace},
+  var pad=document.getElementById('pad');
+  var keys=[{t:'A',c:'hex',dig:'A'},{t:'B',c:'hex',dig:'B'},{t:'C',c:'hex',dig:'C'},{t:'DEL',c:'fn',fn:backspace},
     {t:'7',dig:'7'},{t:'8',dig:'8'},{t:'9',dig:'9'},{t:'D',c:'hex',dig:'D'},
     {t:'4',dig:'4'},{t:'5',dig:'5'},{t:'6',dig:'6'},{t:'E',c:'hex',dig:'E'},
     {t:'1',dig:'1'},{t:'2',dig:'2'},{t:'3',dig:'3'},{t:'F',c:'hex',dig:'F'},
-    {t:'AC',c:'fn wide',fn:clearAll},{t:'0',c:'wide',dig:'0'}
-  ];
-  keys.forEach(function(k){
-    var b=document.createElement('button');
+    {t:'AC',c:'fn wide',fn:clearAll},{t:'0',c:'wide',dig:'0'}];
+  keys.forEach(function(k){ var b=document.createElement('button');
     b.className='key'+(k.c?' '+k.c:''); b.textContent=k.t;
-    if(k.dig){ b.dataset.digit=k.dig; b.addEventListener('click', function(){ pushDigit(k.dig); }); }
-    else if(k.fn){ b.addEventListener('click', k.fn); }
-    pad.appendChild(b);
-  });
+    if(k.dig){ b.dataset.digit=k.dig; b.addEventListener('click',function(){ pushDigit(k.dig); }); }
+    else if(k.fn){ b.addEventListener('click',k.fn); } pad.appendChild(b); });
 
-  // base rows: tap = select, long-press = copy
-  document.querySelectorAll('#tab-calc .row').forEach(function(r){
+  document.querySelectorAll('#tab-base .row').forEach(function(r){
     var b=Number(r.dataset.base), timer=null, longPressed=false, sx=0, sy=0;
-    r.addEventListener('pointerdown', function(e){ longPressed=false; sx=e.clientX; sy=e.clientY;
-      timer=setTimeout(function(){ longPressed=true; copyText(raw[b]||'0'); showToast(baseName[b]+' copied ✨'); }, 380); });
+    r.addEventListener('pointerdown',function(e){ longPressed=false; sx=e.clientX; sy=e.clientY;
+      timer=setTimeout(function(){ longPressed=true; copyText(raw[b]||'0'); showToast(baseName[b]+' copied ✨'); },380); });
     var cancel=function(){ clearTimeout(timer); };
-    r.addEventListener('pointerup', cancel); r.addEventListener('pointerleave', cancel); r.addEventListener('pointercancel', cancel);
-    r.addEventListener('pointermove', function(e){ if(Math.abs(e.clientX-sx)>12||Math.abs(e.clientY-sy)>12) cancel(); });
-    r.addEventListener('click', function(e){ if(longPressed){ longPressed=false; e.preventDefault(); return; } setBase(b); });
+    r.addEventListener('pointerup',cancel); r.addEventListener('pointerleave',cancel); r.addEventListener('pointercancel',cancel);
+    r.addEventListener('pointermove',function(e){ if(Math.abs(e.clientX-sx)>12||Math.abs(e.clientY-sy)>12) cancel(); });
+    r.addEventListener('click',function(e){ if(longPressed){ longPressed=false; e.preventDefault(); return; } setBase(b); });
   });
 
-  // ---------- BITS ----------
-  var bitgrid = document.getElementById('bitgrid');
-  var bitsHex = document.getElementById('bitsHex'), bitsDec = document.getElementById('bitsDec');
+  // Bits
+  var bitgrid=document.getElementById('bitgrid'), bitsHex=document.getElementById('bitsHex'), bitsDec=document.getElementById('bitsDec');
   function renderBits(){
-    bitsHex.textContent = value.toString(16).toUpperCase();
-    bitsDec.textContent = value.toString(10);
-    if(activeTab!=='bits'){ return; } // only build grid when visible
-    var bytes = wordSize/8, html='';
-    for(var by=bytes-1; by>=0; by--){
-      var byteVal = Number((value >> BigInt(by*8)) & 255n);
-      html += '<div class="byte"><span class="lab">'+(by*8+7)+'..'+(by*8)+'</span>';
-      for(var i=7;i>=0;i--){
-        var idx = by*8+i;
-        var on = ((value >> BigInt(idx)) & 1n) === 1n;
-        html += '<div class="bit '+(on?'on':'off')+(i===3?' gap':'')+'" data-idx="'+idx+'">'+(on?'1':'0')+'</div>';
-      }
-      html += '</div>';
+    bitsHex.textContent=value.toString(16).toUpperCase(); bitsDec.textContent=value.toString(10);
+    if(activeTab!=='bits') return;
+    var bytes=wordSize/8, html='';
+    for(var by=bytes-1;by>=0;by--){
+      html+='<div class="byte"><span class="lab">'+(by*8+7)+'..'+(by*8)+'</span>';
+      for(var i=7;i>=0;i--){ var idx=by*8+i; var on=((value>>BigInt(idx))&1n)===1n;
+        html+='<div class="bit '+(on?'on':'off')+(i===3?' gap':'')+'" data-idx="'+idx+'">'+(on?'1':'0')+'</div>'; }
+      html+='</div>';
     }
-    bitgrid.innerHTML = html;
+    bitgrid.innerHTML=html;
   }
-  bitgrid.addEventListener('click', function(e){
-    var cell = e.target.closest('.bit'); if(!cell) return;
-    var idx = BigInt(cell.dataset.idx);
-    value ^= (1n << idx); value &= mask();
-    render();
-  });
+  bitgrid.addEventListener('click',function(e){ var cell=e.target.closest('.bit'); if(!cell) return;
+    value ^= (1n<<BigInt(cell.dataset.idx)); value&=mask(); render(); });
 
-  // ---------- SUBNET ----------
-  var ipInputs = ['o0','o1','o2','o3','cidr'].map(function(id){ return document.getElementById(id); });
-  var ipout = document.getElementById('ipout'), ipbadges = document.getElementById('ipbadges');
+  // Subnet
+  var ipInputs=['o0','o1','o2','o3','cidr'].map(function(id){ return document.getElementById(id); });
+  var ipout=document.getElementById('ipout'), ipbadges=document.getElementById('ipbadges');
   function u32(n){ return n>>>0; }
   function toDotted(n){ return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.'); }
   function computeIP(){
-    var o=[]; for(var i=0;i<4;i++){ o[i]=parseInt(ipInputs[i].value,10); }
+    var o=[]; for(var i=0;i<4;i++) o[i]=parseInt(ipInputs[i].value,10);
     var cidr=parseInt(ipInputs[4].value,10);
-    var valid = o.every(function(x){ return x>=0 && x<=255 && !isNaN(x); }) && cidr>=0 && cidr<=32 && !isNaN(cidr);
+    var valid=o.every(function(x){ return x>=0&&x<=255&&!isNaN(x); })&&cidr>=0&&cidr<=32&&!isNaN(cidr);
     if(!valid){ ipout.innerHTML='<div class="r"><span class="k">…</span><span class="v">enter a valid IP / 0–32</span></div>'; ipbadges.innerHTML=''; return; }
-    var ip = u32((o[0]<<24)|(o[1]<<16)|(o[2]<<8)|o[3]);
-    var m = cidr===0 ? 0 : u32(0xFFFFFFFF << (32-cidr));
-    var wild = u32(~m);
-    var net = u32(ip & m);
-    var bc = u32(net | wild);
-    var total = Math.pow(2, 32-cidr);
-    var usable = cidr>=31 ? (cidr===32?1:2) : total-2;
-    var hostMin, hostMax;
-    if(cidr>=31){ hostMin=net; hostMax=bc; } else { hostMin=u32(net+1); hostMax=u32(bc-1); }
-    var rows = [
-      ['Netmask', toDotted(m)+'  (/'+cidr+')'],
-      ['Wildcard', toDotted(wild)],
-      ['Network', toDotted(net)],
-      ['Broadcast', toDotted(bc)],
-      ['Host range', toDotted(hostMin)+' – '+toDotted(hostMax)],
-      ['Usable hosts', usable.toLocaleString('en-US')]
-    ];
-    var html='';
-    rows.forEach(function(r){ html += '<div class="r" data-copy="'+r[1]+'"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>'; });
-    ipout.innerHTML = html;
-    // badges: class + private/public + loopback/multicast
+    var ip=u32((o[0]<<24)|(o[1]<<16)|(o[2]<<8)|o[3]);
+    var m=cidr===0?0:u32(0xFFFFFFFF<<(32-cidr));
+    var wild=u32(~m), net=u32(ip&m), bc=u32(net|wild);
+    var total=Math.pow(2,32-cidr);
+    var usable=cidr>=31?(cidr===32?1:2):total-2;
+    var hostMin,hostMax; if(cidr>=31){ hostMin=net; hostMax=bc; } else { hostMin=u32(net+1); hostMax=u32(bc-1); }
+    var rows=[['Netmask',toDotted(m)+'  (/'+cidr+')'],['Wildcard',toDotted(wild)],['Network',toDotted(net)],
+      ['Broadcast',toDotted(bc)],['Host range',toDotted(hostMin)+' – '+toDotted(hostMax)],
+      ['Usable hosts',usable.toLocaleString('en-US')]];
+    var html=''; rows.forEach(function(r){ html+='<div class="r" data-copy="'+r[1]+'"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>'; });
+    ipout.innerHTML=html;
     var first=o[0], cls='';
     if(first>=1&&first<=126) cls='Class A'; else if(first===127) cls='Loopback';
     else if(first>=128&&first<=191) cls='Class B'; else if(first>=192&&first<=223) cls='Class C';
     else if(first>=224&&first<=239) cls='Multicast (D)'; else cls='Reserved (E)';
-    var priv = (first===10) || (first===172 && o[1]>=16 && o[1]<=31) || (first===192 && o[1]===168);
-    var bhtml = '<span class="badge">'+cls+'</span>';
-    bhtml += '<span class="badge '+(priv?'':'soft')+'">'+(priv?'Private':'Public')+'</span>';
-    ipbadges.innerHTML = bhtml;
+    var priv=(first===10)||(first===172&&o[1]>=16&&o[1]<=31)||(first===192&&o[1]===168);
+    ipbadges.innerHTML='<span class="badge">'+cls+'</span><span class="badge '+(priv?'':'soft')+'">'+(priv?'Private':'Public')+'</span>';
   }
-  ipInputs.forEach(function(inp){ inp.addEventListener('input', computeIP); });
-  ipout.addEventListener('click', function(e){
-    var r=e.target.closest('.r'); if(!r||!r.dataset.copy) return;
-    copyText(r.dataset.copy); showToast('Copied ✨');
-  });
+  ipInputs.forEach(function(inp){ inp.addEventListener('input',computeIP); });
+  ipout.addEventListener('click',function(e){ var r=e.target.closest('.r'); if(!r||!r.dataset.copy) return;
+    copyText(r.dataset.copy); showToast('Copied ✨'); });
 
-  // ---------- ASCII ----------
-  var asciiText=document.getElementById('asciiText'), cps=document.getElementById('cps');
-  var asciiCode=document.getElementById('asciiCode'), bigchar=document.getElementById('bigchar');
-  function renderAsciiText(){
-    var s = asciiText.value, html='';
-    Array.from(s).forEach(function(ch){
-      var cp = ch.codePointAt(0);
-      var disp = (cp===32) ? '␣' : ch;
-      html += '<div class="cp" data-copy="'+cp+'"><span class="c">'+escapeHtml(disp)+'</span><b>'+cp+'</b><small>0x'+cp.toString(16).toUpperCase()+'</small></div>';
-    });
-    cps.innerHTML = html;
-  }
-  function renderAsciiCode(){
-    var n = parseInt(asciiCode.value,10);
-    if(isNaN(n) || n<0 || n>0x10FFFF){ bigchar.textContent='—'; return; }
-    try{ var ch=String.fromCodePoint(n); bigchar.textContent = (n===32?'␣':ch); }
-    catch(e){ bigchar.textContent='—'; }
-  }
+  // ASCII
+  var asciiText=document.getElementById('asciiText'), cps=document.getElementById('cps'),
+      asciiCode=document.getElementById('asciiCode'), bigchar=document.getElementById('bigchar');
   function escapeHtml(s){ return s.replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  asciiText.addEventListener('input', renderAsciiText);
-  asciiCode.addEventListener('input', renderAsciiCode);
-  cps.addEventListener('click', function(e){
-    var c=e.target.closest('.cp'); if(!c) return;
-    copyText(c.dataset.copy); showToast('Copied '+c.dataset.copy+' ✨');
-  });
+  function renderAsciiText(){ var html='';
+    Array.from(asciiText.value).forEach(function(ch){ var cp=ch.codePointAt(0); var disp=(cp===32)?'␣':ch;
+      html+='<div class="cp" data-copy="'+cp+'"><span class="c">'+escapeHtml(disp)+'</span><b>'+cp+'</b><small>0x'+cp.toString(16).toUpperCase()+'</small></div>'; });
+    cps.innerHTML=html; }
+  function renderAsciiCode(){ var n=parseInt(asciiCode.value,10);
+    if(isNaN(n)||n<0||n>0x10FFFF){ bigchar.textContent='—'; return; }
+    try{ var ch=String.fromCodePoint(n); bigchar.textContent=(n===32?'␣':ch); }catch(e){ bigchar.textContent='—'; } }
+  asciiText.addEventListener('input',renderAsciiText);
+  asciiCode.addEventListener('input',renderAsciiCode);
+  cps.addEventListener('click',function(e){ var c=e.target.closest('.cp'); if(!c) return;
+    copyText(c.dataset.copy); showToast('Copied '+c.dataset.copy+' ✨'); });
 
-  // ---------- tabs ----------
-  var footHint = document.getElementById('footHint');
-  var hints = {
-    calc:'Tap a row to type in it · hold to copy ✨',
-    bits:'', ip:'', ascii:''
-  };
-  document.getElementById('tabs').addEventListener('click', function(e){
-    var t=e.target.closest('.tab'); if(!t) return;
-    activeTab = t.dataset.tab;
-    document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('active', x===t); });
-    ['calc','bits','ip','ascii'].forEach(function(name){
-      document.getElementById('tab-'+name).classList.toggle('hidden', name!==activeTab);
-    });
-    footHint.style.display = hints[activeTab] ? 'block' : 'none';
-    footHint.textContent = hints[activeTab] || '';
+  /* =========================================================
+     Tabs + keyboard
+     ========================================================= */
+  var footHint=document.getElementById('footHint');
+  var hints={ std:'Works just like your normal calculator ✨', base:'Tap a row to type in it · hold to copy ✨', bits:'', ip:'', ascii:'' };
+  document.getElementById('tabs').addEventListener('click',function(e){
+    var t=e.target.closest('.tab'); if(!t) return; activeTab=t.dataset.tab;
+    document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('active',x===t); });
+    ['std','base','bits','ip','ascii'].forEach(function(name){
+      document.getElementById('tab-'+name).classList.toggle('hidden',name!==activeTab); });
+    footHint.style.display = hints[activeTab] ? 'block':'none'; footHint.textContent = hints[activeTab]||'';
     if(activeTab==='bits') renderBits();
     if(activeTab==='ip') computeIP();
     if(activeTab==='ascii'){ renderAsciiText(); renderAsciiCode(); }
   });
 
-  // ---------- physical keyboard (Calc only) ----------
-  var keyOp = {'&':'AND','|':'OR','^':'XOR','~':'NOT','+':'ADD','-':'SUB','*':'MUL','/':'DIV','%':'MOD','=':'EQ'};
-  window.addEventListener('keydown', function(e){
-    var tag = e.target && e.target.tagName;
-    if(tag==='INPUT' || tag==='TEXTAREA') return;
-    if(activeTab!=='calc') return;
-    var k = e.key.toUpperCase();
-    if(digits.indexOf(k)!==-1 && digits.indexOf(k) < base){ pushDigit(k); e.preventDefault(); }
-    else if(e.key==='Backspace'){ backspace(); e.preventDefault(); }
-    else if(e.key==='Escape'){ clearAll(); e.preventDefault(); }
-    else if(e.key==='Enter'){ inputOp('EQ'); e.preventDefault(); }
-    else if(keyOp[e.key]){ inputOp(keyOp[e.key]); e.preventDefault(); }
+  var baseKeyOp={'&':'AND','|':'OR','^':'XOR','~':'NOT'};
+  window.addEventListener('keydown',function(e){
+    var tag=e.target&&e.target.tagName; if(tag==='INPUT'||tag==='TEXTAREA') return;
+    if(activeTab==='std'){
+      if(e.key>='0'&&e.key<='9'){ sDigit(e.key); e.preventDefault(); }
+      else if(e.key==='.'||e.key===','){ sDot(); e.preventDefault(); }
+      else if(e.key==='+'){ sSetOp('+'); e.preventDefault(); }
+      else if(e.key==='-'){ sSetOp('-'); e.preventDefault(); }
+      else if(e.key==='*'){ sSetOp('*'); e.preventDefault(); }
+      else if(e.key==='/'){ sSetOp('/'); e.preventDefault(); }
+      else if(e.key==='%'){ sPercent(); e.preventDefault(); }
+      else if(e.key==='Enter'||e.key==='='){ sEquals(); e.preventDefault(); }
+      else if(e.key==='Backspace'){ sBack(); e.preventDefault(); }
+      else if(e.key==='Escape'){ sClear(); e.preventDefault(); }
+      return;
+    }
+    if(activeTab==='base'){
+      var k=e.key.toUpperCase();
+      if(digits.indexOf(k)!==-1 && digits.indexOf(k)<base){ pushDigit(k); e.preventDefault(); }
+      else if(e.key==='Backspace'){ backspace(); e.preventDefault(); }
+      else if(e.key==='Escape'){ clearAll(); e.preventDefault(); }
+      else if(e.key==='Enter'||e.key==='='){ inputOp('EQ'); e.preventDefault(); }
+      else if(baseKeyOp[e.key]){ inputOp(baseKeyOp[e.key]); e.preventDefault(); }
+      else if(e.key==='+'){ inputOp('ADD'); e.preventDefault(); }
+      else if(e.key==='-'){ inputOp('SUB'); e.preventDefault(); }
+      else if(e.key==='*'){ inputOp('MUL'); e.preventDefault(); }
+      else if(e.key==='/'){ inputOp('DIV'); e.preventDefault(); }
+    }
   });
 
-  // ---------- init ----------
-  render();
-  computeIP();
-  renderAsciiText();
-  renderAsciiCode();
+  // init
+  sRender(); render(); computeIP(); renderAsciiText(); renderAsciiCode();
 })();
 </script>
 </body>
